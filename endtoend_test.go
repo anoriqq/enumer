@@ -4,6 +4,7 @@
 
 // go command is not available on android
 
+//go:build !android
 // +build !android
 
 package main
@@ -21,11 +22,9 @@ import (
 	"testing"
 )
 
-var (
-	// GOEXE defines the executable file name suffix (".exe" on Windows, "" on other systems).
-	// Must be defined here, cannot be read from ENVIRONMENT variables
-	GOEXE = ""
-)
+// GOEXE defines the executable file name suffix (".exe" on Windows, "" on other systems).
+// Must be defined here, cannot be read from ENVIRONMENT variables
+var GOEXE = ""
 
 func init() {
 	// Set GOEXE for Windows platform
@@ -113,6 +112,11 @@ func TestEndToEnd(t *testing.T) {
 		default:
 			typeName = fmt.Sprintf("%c%s", name[0]+'A'-'a', name[1:len(name)-len(".go")])
 			transformNameMethod = "noop"
+		}
+
+		err = run("go", "get", "github.com/go-errors/errors")
+		if err != nil {
+			t.Fatal(err)
 		}
 
 		stringerCompileAndRun(t, dir, stringer, typeName, name, transformNameMethod)

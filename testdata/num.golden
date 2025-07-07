@@ -61,7 +61,7 @@ func NumString(s string) (Num, error) {
 	if val, ok := _NumNameToValueMap[strings.ToLower(s)]; ok {
 		return val, nil
 	}
-	return 0, fmt.Errorf("%s does not belong to Num values", s)
+	return 0, errors.Errorf("%s does not belong to Num values", s)
 }
 
 // NumValues returns all values of the enum
