@@ -89,7 +89,7 @@ func GapString(s string) (Gap, error) {
 	if val, ok := _GapNameToValueMap[strings.ToLower(s)]; ok {
 		return val, nil
 	}
-	return 0, fmt.Errorf("%s does not belong to Gap values", s)
+	return 0, errors.Errorf("%s does not belong to Gap values", s)
 }
 
 // GapValues returns all values of the enum

@@ -131,6 +131,8 @@ func main() {
 		g.Printf("\t\"io\"\n")
 		g.Printf("\t\"strconv\"\n")
 	}
+	g.Printf("\n")
+	g.Printf("\t\"github.com/go-errors/errors\"\n")
 	g.Printf(")\n")
 
 	// Run generate for each type.
@@ -415,7 +417,8 @@ func (g *Generator) prefixValueNames(values []Value, prefix string) {
 // generate produces the String method for the named type.
 func (g *Generator) generate(typeName string,
 	includeJSON, includeYAML, includeSQL, includeText, includeGQLGen bool,
-	transformMethod string, trimPrefix string, addPrefix string, lineComment bool, includeValuesMethod bool) {
+	transformMethod string, trimPrefix string, addPrefix string, lineComment bool, includeValuesMethod bool,
+) {
 	values := make([]Value, 0, 100)
 	for _, file := range g.pkg.files {
 		file.lineComment = lineComment
@@ -691,7 +694,7 @@ func (g *Generator) declareIndexAndNameVar(run []Value, typeName string) {
 	g.Printf("var %s\n", index)
 	index, n = g.createLowerIndexAndNameDecl(run, typeName, "")
 	g.Printf("const %s\n", n)
-	//g.Printf("var %s\n", index)
+	// g.Printf("var %s\n", index)
 }
 
 // createIndexAndNameDecl returns the pair of declarations for the run. The caller will add "const" and "var".
